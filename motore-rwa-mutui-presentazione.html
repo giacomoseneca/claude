@@ -517,6 +517,16 @@ h1, h2, h3{
   letter-spacing:0.05em;
   color: var(--text-light);
 }
+.brand-logo{
+  position:absolute;
+  top: 72px; left: var(--pad-x);
+  z-index:3;
+}
+.brand-logo svg{
+  height: 48px;
+  width: auto;
+  display:block;
+}
 
 /* ===========================================
    CLOSING SLIDE
@@ -740,6 +750,13 @@ body.edit-mode [contenteditable="true"]{
           <span></span><span></span><span></span>
           <span></span><span></span><span></span>
           <span></span><span></span><span></span>
+        </div>
+        <div class="brand-logo reveal d1">
+          <svg viewBox="0 0 260 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mediolanum Banca">
+            <circle cx="30" cy="32" r="22" fill="none" stroke="#2f8fd1" stroke-width="8" stroke-linecap="round" stroke-dasharray="124 15" transform="rotate(-128 30 32)"/>
+            <text x="68" y="42" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="32" letter-spacing="-1" fill="#1c3f73">mediolanum</text>
+            <text x="232" y="14" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="11" letter-spacing="3" fill="#5d6d7e" text-anchor="end">BANCA</text>
+          </svg>
         </div>
         <div class="eyebrow reveal d1" contenteditable="true">Motore RWA Mutui</div>
         <div class="accent-line reveal d1" style="margin-top:24px;"></div>
@@ -1015,6 +1032,13 @@ body.edit-mode [contenteditable="true"]{
     <section class="slide" aria-label="Chiusura">
       <div class="closing">
         <div class="closing-circles"></div>
+        <div class="brand-logo reveal d4">
+          <svg viewBox="0 0 260 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mediolanum Banca">
+            <circle cx="30" cy="32" r="22" fill="none" stroke="#2f8fd1" stroke-width="8" stroke-linecap="round" stroke-dasharray="124 15" transform="rotate(-128 30 32)"/>
+            <text x="68" y="42" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="32" letter-spacing="-1" fill="#1c3f73">mediolanum</text>
+            <text x="232" y="14" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="11" letter-spacing="3" fill="#5d6d7e" text-anchor="end">BANCA</text>
+          </svg>
+        </div>
         <h1 class="reveal d1" contenteditable="true">Un motore. Una verità. Decisioni più rapide.</h1>
         <p class="lead reveal d2" contenteditable="true">Dalla domanda "quanto capitale serve?" alla risposta — e a tutte le sue varianti — in pochi minuti.</p>
         <button class="cta-button reveal d3" contenteditable="true">Richiedi una demo dal vivo</button>
