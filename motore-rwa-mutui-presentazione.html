@@ -410,6 +410,62 @@ h1, h2, h3{
 }
 
 /* ===========================================
+   DONUT CHART (portfolio composition)
+   =========================================== */
+.donut-wrap{
+  position:relative;
+  width: 340px; height:340px;
+  margin: 0 auto;
+}
+.donut-wrap svg{ width:100%; height:100%; display:block; }
+.donut-center{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  pointer-events:none;
+}
+.donut-center .num{
+  font-family: var(--font-display); font-weight:700; font-size:44px; color:var(--text);
+  line-height:1;
+}
+.donut-center .lbl{
+  font-family: var(--font-body); font-size:16px; color:var(--text-muted); margin-top:8px;
+}
+.chart-legend{ display:flex; flex-direction:column; gap:26px; justify-content:center; }
+.chart-legend .legend-row{ display:flex; align-items:center; gap:20px; }
+.legend-dot{ width:18px; height:18px; border-radius:5px; flex-shrink:0; }
+.legend-label{ flex:1; font-family:var(--font-body); font-size: var(--fs-bar-label); color: var(--text); }
+.legend-pct{ font-family:var(--font-display); font-weight:600; font-size: var(--fs-bar-pct); color: var(--primary); }
+
+/* ===========================================
+   HISTOGRAM (LTV distribution, vertical bars)
+   =========================================== */
+.hist-card{ background: var(--card-bg); border:1.5px solid var(--border); border-radius:14px; padding:32px 48px; display:flex; flex-direction:column; align-items:center; }
+.hist-card svg{ width:auto; height:360px; display:block; }
+.hist-tag{
+  display:inline-flex; align-items:center; gap:10px;
+  background: var(--primary); color: var(--bg);
+  font-family: var(--font-display); font-weight:600; font-size:16px; letter-spacing:0.04em;
+  padding:10px 24px; border-radius:100px;
+}
+
+/* ===========================================
+   WATERFALL CHART (theoretical vs real RWA)
+   =========================================== */
+.waterfall-card{ background: var(--card-bg); border:1.5px solid var(--border); border-radius:14px; padding:44px 48px; height:100%; display:flex; flex-direction:column; justify-content:center; }
+.waterfall-card svg{ width:100%; height:auto; display:block; }
+
+/* ===========================================
+   SENSITIVITY LINE CHART
+   =========================================== */
+.sens-card{ background: var(--card-bg); border:1.5px solid var(--border); border-radius:14px; padding:48px 56px; display:flex; flex-direction:column; align-items:center; }
+.sens-card svg{ width:auto; height:380px; display:block; }
+.sens-legend{ display:flex; gap:64px; margin-top:24px; justify-content:center; }
+.sens-legend .legend-row{ display:flex; align-items:center; gap:16px; }
+.sens-legend .legend-dot{ width:24px; height:6px; border-radius:3px; flex-shrink:0; }
+.sens-legend .legend-label{ font-family:var(--font-body); font-size:var(--fs-body); color:var(--text); flex:none; }
+
+/* ===========================================
    SPLIT HIGHLIGHT BLOCK (pull-quote callout)
    =========================================== */
 .highlight-block{
@@ -904,38 +960,79 @@ body.edit-mode [contenteditable="true"]{
       <div class="content">
         <h2 class="reveal d2" contenteditable="true">Scopri subito dove si concentra il capitale di rischio</h2>
         <p class="lead reveal d2" contenteditable="true">Ogni tipologia di mutuo pesa in modo diverso: il motore lo mostra a colpo d'occhio, senza incrociare tabelle.</p>
-        <div class="reveal d3">
-          <div class="bar-row">
-            <div class="bar-label" contenteditable="true">Residenziale</div>
-            <div class="bar-track"><div class="bar-fill" data-width="58"></div></div>
-            <div class="bar-pct">58%</div>
+        <div class="grid-2 reveal d3">
+          <div class="donut-wrap">
+            <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="120" cy="120" r="90" fill="none" stroke="#1e2bfa" stroke-width="36" stroke-dasharray="327.98 565.49" stroke-dashoffset="0" transform="rotate(-90 120 120)"/>
+              <circle cx="120" cy="120" r="90" fill="none" stroke="#5b67fc" stroke-width="36" stroke-dasharray="124.41 565.49" stroke-dashoffset="-327.98" transform="rotate(-90 120 120)"/>
+              <circle cx="120" cy="120" r="90" fill="none" stroke="#98a1fd" stroke-width="36" stroke-dasharray="67.86 565.49" stroke-dashoffset="-452.39" transform="rotate(-90 120 120)"/>
+              <circle cx="120" cy="120" r="90" fill="none" stroke="#d3d6fe" stroke-width="36" stroke-dasharray="45.24 565.49" stroke-dashoffset="-520.25" transform="rotate(-90 120 120)"/>
+            </svg>
+            <div class="donut-center">
+              <div class="num" contenteditable="true">€480M</div>
+              <div class="lbl" contenteditable="true">Stock mutui</div>
+            </div>
           </div>
-          <div class="bar-row">
-            <div class="bar-label" contenteditable="true">Commerciale</div>
-            <div class="bar-track"><div class="bar-fill" data-width="22"></div></div>
-            <div class="bar-pct">22%</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label" contenteditable="true">IPRE Residenziale</div>
-            <div class="bar-track"><div class="bar-fill" data-width="12"></div></div>
-            <div class="bar-pct">12%</div>
-          </div>
-          <div class="bar-row">
-            <div class="bar-label" contenteditable="true">IPRE Commerciale</div>
-            <div class="bar-track"><div class="bar-fill" data-width="8"></div></div>
-            <div class="bar-pct">8%</div>
+          <div class="chart-legend">
+            <div class="legend-row"><span class="legend-dot" style="background:#1e2bfa"></span><span class="legend-label" contenteditable="true">Residenziale</span><span class="legend-pct">58%</span></div>
+            <div class="legend-row"><span class="legend-dot" style="background:#5b67fc"></span><span class="legend-label" contenteditable="true">Commerciale</span><span class="legend-pct">22%</span></div>
+            <div class="legend-row"><span class="legend-dot" style="background:#98a1fd"></span><span class="legend-label" contenteditable="true">IPRE Residenziale</span><span class="legend-pct">12%</span></div>
+            <div class="legend-row"><span class="legend-dot" style="background:#d3d6fe"></span><span class="legend-label" contenteditable="true">IPRE Commerciale</span><span class="legend-pct">8%</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ SLIDE 7 — L'EFFETTO DELLA DISPERSIONE ============ -->
+    <!-- ============ SLIDE 7 — DISTRIBUZIONE LTV ============ -->
+    <section class="slide" aria-label="Distribuzione LTV">
+      <div class="slide-header">
+        <div class="eyebrow-group">
+          <span class="eyebrow reveal d1" contenteditable="true">Distribuzione</span>
+        </div>
+        <div class="tag-pill reveal d1" contenteditable="true">06</div>
+      </div>
+      <div class="content">
+        <h2 class="reveal d2" contenteditable="true">Non tutti i mutui pesano allo stesso modo: conta anche il rapporto prestito/garanzia</h2>
+        <p class="lead reveal d2" contenteditable="true">Il motore distribuisce il portafoglio per fascia di LTV e segnala dove il capitale è più sensibile a piccoli spostamenti.</p>
+        <div class="hist-card reveal d3">
+          <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="300" x2="740" y2="300" stroke="var(--border)" stroke-width="2"/>
+            <rect x="20" y="139.3" width="90" height="160.7" rx="8" fill="var(--accent-medium)"/>
+            <text x="65" y="127" text-anchor="middle" font-family="Space Grotesk" font-weight="600" font-size="22" fill="var(--text)">18%</text>
+            <text x="65" y="330" text-anchor="middle" font-family="Inter" font-size="18" fill="var(--text-muted)">&lt; 40%</text>
+
+            <rect x="146" y="85.7" width="90" height="214.3" rx="8" fill="var(--accent-medium)"/>
+            <text x="191" y="74" text-anchor="middle" font-family="Space Grotesk" font-weight="600" font-size="22" fill="var(--text)">24%</text>
+            <text x="191" y="330" text-anchor="middle" font-family="Inter" font-size="18" fill="var(--text-muted)">40–55%</text>
+
+            <rect x="272" y="50" width="90" height="250" rx="8" fill="#1e2bfa"/>
+            <text x="317" y="38" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="22" fill="#1e2bfa">28%</text>
+            <text x="317" y="330" text-anchor="middle" font-family="Inter" font-weight="600" font-size="18" fill="var(--text)">55–65%</text>
+
+            <rect x="398" y="130.4" width="90" height="169.6" rx="8" fill="var(--accent-medium)"/>
+            <text x="443" y="118" text-anchor="middle" font-family="Space Grotesk" font-weight="600" font-size="22" fill="var(--text)">19%</text>
+            <text x="443" y="330" text-anchor="middle" font-family="Inter" font-size="18" fill="var(--text-muted)">65–80%</text>
+
+            <rect x="524" y="228.6" width="90" height="71.4" rx="8" fill="var(--accent-medium)"/>
+            <text x="569" y="217" text-anchor="middle" font-family="Space Grotesk" font-weight="600" font-size="22" fill="var(--text)">8%</text>
+            <text x="569" y="330" text-anchor="middle" font-family="Inter" font-size="18" fill="var(--text-muted)">80–100%</text>
+
+            <rect x="650" y="273.2" width="90" height="26.8" rx="8" fill="var(--accent-medium)"/>
+            <text x="695" y="261" text-anchor="middle" font-family="Space Grotesk" font-weight="600" font-size="22" fill="var(--text)">3%</text>
+            <text x="695" y="330" text-anchor="middle" font-family="Inter" font-size="18" fill="var(--text-muted)">&gt; 100%</text>
+          </svg>
+          <div class="hist-tag reveal d4" style="margin-top:12px;" contenteditable="true">Zona critica: fascia 55–65% LTV</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 8 — L'EFFETTO DELLA DISPERSIONE ============ -->
     <section class="slide" aria-label="L'effetto della dispersione">
       <div class="slide-header">
         <div class="eyebrow-group">
           <span class="eyebrow reveal d1" contenteditable="true">Insight</span>
         </div>
-        <div class="tag-pill reveal d1" contenteditable="true">06</div>
+        <div class="tag-pill reveal d1" contenteditable="true">07</div>
       </div>
       <div class="content">
         <h2 class="reveal d2" contenteditable="true">La media non basta: anche come si distribuiscono i mutui conta</h2>
@@ -952,32 +1049,76 @@ body.edit-mode [contenteditable="true"]{
             </div>
           </div>
           <div class="reveal d4">
-            <div class="card" style="height:100%; display:flex; flex-direction:column; justify-content:center;">
-              <h3 contenteditable="true" style="margin-bottom:36px;">RWA teorico vs RWA reale</h3>
-              <div class="bar-row">
-                <div class="bar-label" contenteditable="true">Se tutti i mutui avessero il LTV medio</div>
-                <div class="bar-track"><div class="bar-fill" data-width="78"></div></div>
-                <div class="bar-pct">78%</div>
-              </div>
-              <div class="bar-row">
-                <div class="bar-label" contenteditable="true">RWA reale del portafoglio</div>
-                <div class="bar-track"><div class="bar-fill" data-width="100"></div></div>
-                <div class="bar-pct">100%</div>
-              </div>
-              <p contenteditable="true" style="margin-top:8px;">La differenza, circa <b style="color:var(--primary)">+22%</b>, è il costo della dispersione: il motore la isola e la spiega.</p>
+            <div class="waterfall-card">
+              <h3 contenteditable="true" style="margin-bottom:24px;">RWA teorico vs RWA reale</h3>
+              <svg viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg">
+                <line x1="20" y1="290" x2="430" y2="290" stroke="var(--border)" stroke-width="2"/>
+                <rect x="20" y="102.8" width="110" height="187.2" rx="8" fill="var(--accent-medium)"/>
+                <rect x="170" y="50" width="110" height="52.8" rx="8" fill="#1e2bfa"/>
+                <rect x="320" y="50" width="110" height="240" rx="8" fill="#1e2bfa"/>
+                <line x1="130" y1="102.8" x2="170" y2="102.8" stroke="var(--text-light)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <line x1="280" y1="50" x2="320" y2="50" stroke="var(--text-light)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <text x="75" y="88" text-anchor="middle" font-family="Space Grotesk" font-weight="600" font-size="24" fill="var(--text)">78%</text>
+                <text x="225" y="36" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="24" fill="#1e2bfa">+22%</text>
+                <text x="375" y="36" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="24" fill="#1e2bfa">100%</text>
+                <text x="75" y="312" text-anchor="middle" font-family="Inter" font-size="17" fill="var(--text-muted)">RWA teorico</text>
+                <text x="225" y="312" text-anchor="middle" font-family="Inter" font-size="17" fill="var(--text-muted)">Effetto dispersione</text>
+                <text x="375" y="312" text-anchor="middle" font-family="Inter" font-size="17" fill="var(--text-muted)">RWA reale</text>
+              </svg>
+              <p contenteditable="true" style="margin-top:24px;">La differenza, circa <b style="color:var(--primary)">+22%</b>, è il costo della dispersione: il motore la isola e la spiega.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ SLIDE 8 — SIMULAZIONI ============ -->
+    <!-- ============ SLIDE 9 — SENSITIVITY ============ -->
+    <section class="slide" aria-label="Sensitivity">
+      <div class="slide-header">
+        <div class="eyebrow-group">
+          <span class="eyebrow reveal d1" contenteditable="true">Sensitivity</span>
+        </div>
+        <div class="tag-pill reveal d1" contenteditable="true">08</div>
+      </div>
+      <div class="content">
+        <h2 class="reveal d2" contenteditable="true">Sposta i parametri e guarda subito come cambia il capitale richiesto</h2>
+        <p class="lead reveal d2" contenteditable="true">Due leve, un solo grafico: vedi in tempo reale l'effetto di un peggioramento del rating o di uno shock sul valore delle garanzie.</p>
+        <div class="sens-card reveal d3">
+          <svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="200" x2="660" y2="200" stroke="var(--border)" stroke-width="2"/>
+            <text x="46" y="192" font-family="Space Grotesk" font-weight="500" font-size="16" fill="var(--text-light)">0%</text>
+            <line x1="350" y1="30" x2="350" y2="320" stroke="var(--text-light)" stroke-width="1.5" stroke-dasharray="5 5"/>
+            <text x="350" y="20" text-anchor="middle" font-family="Inter" font-size="15" fill="var(--text-muted)">Scenario attuale</text>
+
+            <polyline points="60,272 156.67,248 253.33,224 350,200 446.67,164 543.33,124 640,72" fill="none" stroke="#1e2bfa" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+            <polyline points="60,288 156.67,260 253.33,228 350,200 446.67,156 543.33,104 640,40" fill="none" stroke="#9aa3fd" stroke-width="4" stroke-dasharray="2 7" stroke-linejoin="round" stroke-linecap="round"/>
+
+            <circle cx="60" cy="272" r="5" fill="#1e2bfa"/><circle cx="156.67" cy="248" r="5" fill="#1e2bfa"/><circle cx="253.33" cy="224" r="5" fill="#1e2bfa"/><circle cx="350" cy="200" r="5" fill="#1e2bfa"/><circle cx="446.67" cy="164" r="5" fill="#1e2bfa"/><circle cx="543.33" cy="124" r="5" fill="#1e2bfa"/><circle cx="640" cy="72" r="5" fill="#1e2bfa"/>
+            <circle cx="60" cy="288" r="5" fill="#9aa3fd"/><circle cx="156.67" cy="260" r="5" fill="#9aa3fd"/><circle cx="253.33" cy="228" r="5" fill="#9aa3fd"/><circle cx="350" cy="200" r="5" fill="#9aa3fd"/><circle cx="446.67" cy="156" r="5" fill="#9aa3fd"/><circle cx="543.33" cy="104" r="5" fill="#9aa3fd"/><circle cx="640" cy="40" r="5" fill="#9aa3fd"/>
+
+            <text x="60" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">-3</text>
+            <text x="156.67" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">-2</text>
+            <text x="253.33" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">-1</text>
+            <text x="350" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">0</text>
+            <text x="446.67" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">+1</text>
+            <text x="543.33" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">+2</text>
+            <text x="640" y="345" text-anchor="middle" font-family="Inter" font-size="16" fill="var(--text-muted)">+3</text>
+          </svg>
+          <div class="sens-legend">
+            <div class="legend-row"><span class="legend-dot" style="background:#1e2bfa"></span><span class="legend-label" contenteditable="true">Variazione RWA per spostamento del rating</span></div>
+            <div class="legend-row"><span class="legend-dot" style="background:#9aa3fd"></span><span class="legend-label" contenteditable="true">Variazione RWA per shock sul LTV</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 10 — SIMULAZIONI ============ -->
     <section class="slide" aria-label="Simulazioni">
       <div class="slide-header">
         <div class="eyebrow-group">
           <span class="eyebrow reveal d1" contenteditable="true">Simulazioni</span>
         </div>
-        <div class="tag-pill reveal d1" contenteditable="true">07</div>
+        <div class="tag-pill reveal d1" contenteditable="true">09</div>
       </div>
       <div class="content">
         <h2 class="reveal d2" contenteditable="true">Prova scenari diversi, prima di prendere una decisione</h2>
@@ -1001,13 +1142,13 @@ body.edit-mode [contenteditable="true"]{
       </div>
     </section>
 
-    <!-- ============ SLIDE 9 — PRONTO DA CONDIVIDERE ============ -->
+    <!-- ============ SLIDE 11 — PRONTO DA CONDIVIDERE ============ -->
     <section class="slide" aria-label="Pronto da condividere">
       <div class="slide-header">
         <div class="eyebrow-group">
           <span class="eyebrow reveal d1" contenteditable="true">Condivisione</span>
         </div>
-        <div class="tag-pill reveal d1" contenteditable="true">08</div>
+        <div class="tag-pill reveal d1" contenteditable="true">10</div>
       </div>
       <div class="content">
         <h2 class="reveal d2" contenteditable="true">Dal calcolo al report, pronto in un click</h2>
@@ -1028,7 +1169,7 @@ body.edit-mode [contenteditable="true"]{
       </div>
     </section>
 
-    <!-- ============ SLIDE 10 — CLOSING ============ -->
+    <!-- ============ SLIDE 12 — CLOSING ============ -->
     <section class="slide" aria-label="Chiusura">
       <div class="closing">
         <div class="closing-circles"></div>
@@ -1053,7 +1194,7 @@ body.edit-mode [contenteditable="true"]{
      PERSISTENT CHROME — outside the scaled stage
      ========================================= -->
 <div class="chrome">
-  <div class="counter" id="slideCounter">01 / 10</div>
+  <div class="counter" id="slideCounter">01 / 12</div>
   <div class="hint">Usa le freccette ← → per navigare</div>
   <div class="nav-controls">
     <button class="nav-btn" id="prevBtn" aria-label="Slide precedente">←</button>
